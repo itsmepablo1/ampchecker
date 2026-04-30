@@ -1,0 +1,22 @@
+# Credentials & sensitive data — JANGAN diupload ke Git!
+settings.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Log files
+*.log
+bot.pid
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db

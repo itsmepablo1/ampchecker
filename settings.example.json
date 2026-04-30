@@ -1,0 +1,17 @@
+{
+  "tg_token": "ISI_TOKEN_BOT_TELEGRAM",
+  "tg_chat_id": "ISI_CHAT_ID",
+  "serpapi_key": "ISI_SEARCHAPI_KEY",
+  "serpapi_loc": "Jakarta, Indonesia",
+  "proxy_host": "",
+  "proxy_type": "http",
+  "proxy_user": "",
+  "proxy_pass": "",
+  "host": "Google",
+  "max_browsers": 1,
+  "direction": "",
+  "auto_minutes": "60",
+  "auto_active": "off",
+  "admin_ids": [],
+  "last_keywords": ""
+}
