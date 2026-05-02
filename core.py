@@ -229,7 +229,7 @@ def make_uule(location_name: str) -> str:
 
 def run_google_serpapi(keywords: list, cfg: dict, log_cb=None) -> list:
     """
-    Search via SearchAPI, detect AMP, return all_results list.
+    Search via SearchAPI (engine=google), detect AMP, return all_results list.
     log_cb(text) dipanggil untuk tiap log line.
     Returns: [(keyword, [(href, amp_url, is_amp), ...]), ...]
     """
@@ -238,30 +238,29 @@ def run_google_serpapi(keywords: list, cfg: dict, log_cb=None) -> list:
             log_cb(msg)
 
     serpapi_key = cfg.get("serpapi_key", "")
-    serpapi_loc = cfg.get("serpapi_loc", "Jakarta, Indonesia")
-    loc_display = serpapi_loc.split(",")[0].strip()
     all_results = []
 
     for kw_idx, keyword in enumerate(keywords):
         log(f"🔑 [{kw_idx+1}/{len(keywords)}] SearchAPI: *{keyword}*")
 
-        uule = make_uule(serpapi_loc)
+        # ── SearchAPI.io — engine=google (Google Search API) ──────────────────
+        # Docs: https://www.searchapi.io/docs/google
+        # location=Indonesia → auto-UULE: w+CAIQICIJSW5kb25lc2lh
         params = {
-            "engine":  "google_rank_tracking",
-            "q":       keyword,
-            "api_key": serpapi_key,
-            "uule":    uule,
-            "gl":      "id",
-            "hl":      "id",
-            "lr":      "lang_id",
-            "cr":      "countryID",
-            "num":     10,
-            "device":  "mobile",
-            "pws":     "0",
-            "nfpr":    "1",
-            "safe":    "off",
+            "engine":   "google",
+            "q":        keyword,
+            "api_key":  serpapi_key,
+            "location": "Indonesia",    # Geo: Indonesia (auto-UULE)
+            "gl":       "id",           # Country = Indonesia
+            "hl":       "id",           # Interface = Bahasa Indonesia
+            "nfpr":     "1",            # No auto spell correction
+            "filter":   "0",            # No duplicate filter
+            "safe":     "off",
+            "num":      10,
+            "device":   "mobile",
+            "no_cache": "true",         # Force fresh results — no stale cache
         }
-        log(f"🌐 UULE({serpapi_loc}) | gl=id | hl=id | mobile")
+        log(f"🌐 engine=google | loc=Indonesia | gl=id | hl=id | mobile | no_cache")
         try:
             resp = requests.get(
                 "https://www.searchapi.io/api/v1/search",
